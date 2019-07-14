@@ -1,0 +1,7 @@
+.vertx
+.vscode
+target
+.classpath
+.project
+.settings
+war
