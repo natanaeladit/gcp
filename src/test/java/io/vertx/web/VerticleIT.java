@@ -9,7 +9,7 @@ import static com.jayway.restassured.RestAssured.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-public class RestIT {
+public class VerticleIT {
     @BeforeClass
     public static void configureRestAssured() {
         RestAssured.baseURI = "http://localhost";
