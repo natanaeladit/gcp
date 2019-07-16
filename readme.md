@@ -23,3 +23,12 @@ Go to
 ```
 http://localhost:9999/assets/index.html
 ```
+
+Postgres
+
+```
+sudo -u postgres psql
+CREATE DATABASE yourdbname;
+CREATE USER youruser WITH ENCRYPTED PASSWORD 'yourpass';
+GRANT ALL PRIVILEGES ON DATABASE yourdbname TO youruser;
+```

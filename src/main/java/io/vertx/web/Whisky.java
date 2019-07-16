@@ -2,10 +2,12 @@ package io.vertx.web;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+import io.vertx.core.json.JsonObject;
+
 public class Whisky {
     private static final AtomicInteger COUNTER = new AtomicInteger();
 
-    private final int id;
+    private final Integer id;
 
     private String name;
 
@@ -17,8 +19,20 @@ public class Whisky {
         this.origin = origin;
     }
 
+    public Whisky(Integer id, String name, String origin) {
+        this.id = id;
+        this.name = name;
+        this.origin = origin;
+    }
+
     public Whisky() {
         this.id = COUNTER.getAndIncrement();
+    }
+
+    public Whisky(JsonObject json) {
+        this.name = json.getString("name");
+        this.origin = json.getString("origin");
+        this.id = json.getInteger("id");
     }
 
     public String getName() {
