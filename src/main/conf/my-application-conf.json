@@ -1,5 +1,0 @@
-{
-    "http.port": 9999,
-    "url": "jdbc:postgresql://localhost/mywhiskey?user=username&password=password&ssl=false",
-    "driver_class": "org.postgresql.Driver"
-}
