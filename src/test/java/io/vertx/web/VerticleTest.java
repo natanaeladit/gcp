@@ -1,8 +1,10 @@
 package io.vertx.web;
 
+import io.vertx.config.ConfigRetriever;
+import io.vertx.config.ConfigRetrieverOptions;
+import io.vertx.config.ConfigStoreOptions;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Vertx;
-import io.vertx.core.buffer.Buffer;
 import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.unit.Async;
@@ -32,9 +34,23 @@ public class VerticleTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        DeploymentOptions options = new DeploymentOptions().setConfig(new JsonObject().put("http.port", port)
-                .put("url", "jdbc:postgresql://localhost/mywhiskey?user=username&password=password&ssl=false").put("driver_class", "org.postgresql.Driver"));
-        vertx.deployVerticle(Verticle.class.getName(), options, context.asyncAssertSuccess());
+
+        ConfigStoreOptions fileStore = new ConfigStoreOptions().setType("file")
+                .setConfig(new JsonObject().put("path", "my-it-config.json"));
+        ConfigRetrieverOptions configOptions = new ConfigRetrieverOptions().addStore(fileStore);
+        ConfigRetriever retriever = ConfigRetriever.create(vertx, configOptions);
+
+        retriever.getConfig(ar -> {
+            if (ar.failed()) {
+                // Failed to retrieve the configuration
+            } else {
+                JsonObject fileConfig = ar.result();
+
+                DeploymentOptions options = new DeploymentOptions().setConfig(fileConfig.put("http.port", port));
+                vertx.deployVerticle(Verticle.class.getName(), options, context.asyncAssertSuccess());
+            }
+        });
+
     }
 
     @After
