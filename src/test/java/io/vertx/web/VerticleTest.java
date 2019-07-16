@@ -33,7 +33,7 @@ public class VerticleTest {
             e.printStackTrace();
         }
         DeploymentOptions options = new DeploymentOptions().setConfig(new JsonObject().put("http.port", port)
-                .put("url", "jdbc:postgresql://45.76.191.12/mywhiskey?user=mywhiskeyuser&password=poiuylkjhg12345").put("driver_class", "org.postgresql.Driver"));
+                .put("url", "jdbc:postgresql://localhost/mywhiskey?user=username&password=password&ssl=false").put("driver_class", "org.postgresql.Driver"));
         vertx.deployVerticle(Verticle.class.getName(), options, context.asyncAssertSuccess());
     }
 

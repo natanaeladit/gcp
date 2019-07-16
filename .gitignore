@@ -6,3 +6,5 @@ target
 .settings
 war
 bin
+src/test/resources/my-it-config.json
+src/main/conf/my-application-conf.json
