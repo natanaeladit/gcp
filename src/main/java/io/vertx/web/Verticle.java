@@ -208,7 +208,7 @@ public class Verticle extends AbstractVerticle {
     private void getAll(RoutingContext routingContext) {
         _dbClient.getConnection(ar -> {
             SQLConnection connection = ar.result();
-            connection.query("SELECT * FROM public.Whisky", result -> {
+            connection.query("SELECT * FROM public.Whisky ORDER BY id", result -> {
                 List<Whisky> whiskies = result.result().getRows().stream().map(Whisky::new)
                         .collect(Collectors.toList());
                 routingContext.response().putHeader("content-type", "application/json; charset=utf-8")
